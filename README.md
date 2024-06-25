@@ -58,7 +58,8 @@ Evaluation Criteria:
    <br />
    Each event type is logged on separate lines and the values ​​are delimited by commas. The field without a value is represented by a question mark.('?').
 
-   The proposed solution is to create a schema using a central table to store common fields such as timestamp and event type. With the data source, you create all tables with a foreign key that references the central table. <br />
+   The proposed solution is to create a schema using a hybrid model that has a central table to store common fields such as timestamp and event type. With the data source,
+ All tables are created with a foreign key that references the central table. <br />
    The proposed model is shown in the following image, this is a model created in SQL Server:
 
    
