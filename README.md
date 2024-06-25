@@ -56,17 +56,17 @@ Evaluation Criteria:
    - redteam.txt.gz: <br />
      RedTeam events has the format "time, user@domain, source computer, target computer".
    <br />
-   Every event type its registered in separate lines and the values are delimitate by commas. The field wihtout value has a representation by an interrogation sing('?').
+   Each event type is logged on separate lines and the values ​​are delimited by commas. The field without a value is represented by a question mark.('?').
 
-   The proposed solution its the creation of a schema using a central table to almacenate the commond fields like the time mark and event type. Wiht the data source create all tables wiht a foreing key that has reference to central table. <br />
-   The propose model are showed in the next image, this is a mothel create in SQLServer:
+   The proposed solution is to create a schema using a central table to store common fields such as timestamp and event type. With the data source, you create all tables with a foreign key that references the central table. <br />
+   The proposed model is shown in the following image, this is a model created in SQL Server:
 
    
    ![Model SQL Server create to look the realtional tables](https://github.com/edwinibague/Seguridad_Informatica/assets/47603314/a2ef4a5a-f820-44bc-b8d0-f4813ed01b40)
 
-   This model make a form to hava a ordered data and its most easy make search in real time only with a SQL querys, but if its needed a search by blocks, its necesary use a techniques to extract information use python scrips, its possible use libraries like pyspark to create partitions of data making dataframes and use a small blocks of data. This form  allows make search by blocks and in real time. <br />
+   This model creates a way to have ordered data and the easiest thing is to perform searches in real time only with SQL queries, but if a block search is needed, it is necessary to use techniques to extract information, use Python scripts, it is possible to use libraries like pyspark to partition data, create data frames, and use small blocks of data. In this way it allows searching by blocks and in real time. <br />
 
-   The selection of a SQL model or realtional model its basicaly by its the most easy to undestand and its knowledge by the author, but other considerations have been taken, for example, the cost of maintenance, scalability, implementation dificult and others. To understand the consideration that have its create the next table: <br />
+   The selection of an SQL model or relational model is given because it is easier to understand and is known to the author, but other considerations have been taken, for example, the cost of maintenance, scalability, difficulty of implementation and others. To understand the consideration that has been taken, the following table has been created: <br />
 
 | Feature | Relational Database | Data Warehouse | Data Lake |
 |:----------:|:----------:|:----------:|:----------:|
@@ -79,33 +79,33 @@ Evaluation Criteria:
 | Implementation difficulty | Moderate | High | Low|
 
 2. Data ingestion and transformation: <br />
-   To abordate this point its necesary implementate a combination of techniques and tools that at moment to work togueder can guarantee the sincronitation of search indice. This can be archived wiht a integral aproach:
+   To address this point, it is necessary to implement a combination of techniques and tools that, when working together, can guarantee the synchronization of the search indexes. This can be done with a comprehensive approach:
    
    1. **identify change events in data:** <br />
-      in SQl server its possible capture and track events of change using the funtion CdC this funtion provide a mehcanism to capture changes. other implementation its trigger-bassed monitoring this to monitorin all changes in data, the triggers can be configurate to execute especific actions like send notifications or update external sistems when changes are maked in data.<br />
+      In the SQL server it is possible to capture and track change events using the CDC function. This feature provides a mechanism to capture changes. Another implementation is trigger based monitoring to monitor all changes to the data, triggers can be configured to execute specific actions such as sending notifications or updating external systems when changes are made to the data.<br />
       
    2. **Implement mechanism of change notification; **<br />
-      the notifications CDC can be use to take alerts every time that its capture a change in data, this notifications can start the proces to update the indice. The notifications bassed on trigers can be configurate, when this trigger is activate for any change in data, its possible send notifications or menssage to another comunication chanel. <br />
+      CDC notifications can be used to receive alerts whenever a change in data is captured, these notifications can start the index update process. Trigger based notifications can be configured, when this trigger is activated by any change in data, it is possible to send notifications or messages to another communication channel. <br />
       
    3. **indice update proces:** <br />
-      the batch udate when a notification its taken can be realized in the indice update, in this momment its necesary identify all data afected and update all index entries. to update in real time are necesary use a stream procesing framework like apache Kafka or Apache Spark Streaming, this can process  a change notifications continue and update index in real time.<br />
+      Batch update when a notification is received can be done in the index update, at this time it is necessary to identify all affected data and update all index entries. To update in real time you need to use a stream processing framework like Apache Kafka or Apache Spark Streaming, this can process change notifications, continue and update the index in real time.<br />
       
    4.  **Maintenance of search index:**<br />
-       to prevent any potencial discrepancies and ensure data consistency its posible use a periodically perform a full rebuild of the search index. Implement incremental updates to the index, focusing anly on the modified data recods, rather that rebuilding the entire index each time.<br />
+       To avoid potential discrepancies and ensure data consistency, a complete rebuild of the search index can be performed periodically. Implement incremental index updates, focusing only on changed data records, rather than rebuilding the entire index each time.<br />
        
    5.  **Chose an appropiate search engine;**<br />
-       A consideration that have its a search monitors like elasticsearch or Apache Solr, that have capacitiers to index, search and sincronizate. Other consideration is data base NOSQL like MongoDB or Cassandra that provide  functionalities to integrate search and can use large volumens of data. <br />
+       One consideration to have are search monitors such as elasticsearch or Apache Solr, which have indexing, searching, and synchronization capabilities. Another consideration is NoSQL databases such as MongoDB or Cassandra that provide functionality to integrate searches and can use large volumes of data. <br />
        
    6.  **Consider Cloud-based Search services:**<br />
-       in Cloud services are other considerations that are posible, Amazon elasticSearch service or Azure Search can provide a gestionate serach, escalability and all in real time. <br />
+       In cloud services there are other considerations that are possible, Amazon elasticSearch or Azure Search service can provide managed search, scalability and all in real time. <br />
        
    7.  **Handle data conflicts and errors:**<br />
-       Implement retry mechanism to handle temporaly failures or errors during change notification or index update processes. Develop resolution strategies to address potential discrepancies betwenen the SQL Server data and the search index. <br />
+       Implement a retry mechanism to handle temporary failures or errors during the change notification or index update processes. Develop resolution strategies to address potential discrepancies between SQL Server data and the search index. <br />
        
    8.  **Monitor and optimize Performance:**<br />
-       Monitor the performance of the indexing process, including indexing time, resouce utilitation , and error rates. Optimize indexing strategies based on data volume, change frecuency, and search patterns to ensure efficient indexing and search performance. <br />
+       Monitor the performance of the indexing process, including indexing time, resource utilization, and error rates. Optimize indexing strategies based on data volume, change frequency, and search patterns to ensure efficient indexing and search performance. <br />
        
-  The following pseudocode show the form to make a data ingestion using python.<br />
+  The following pseudocode shows how to perform data ingestion using Python.<br />
   
 
    ```python
@@ -276,14 +276,14 @@ Evaluation Criteria:
      <br />
 
 4. Handling Scale and Performance:<br />
-   The solution that its propouse in this case is funtional in short scale but its posible that in future with terabytes of data, the solution hava problems, thouse error are normal because a relacional data base have problems to management a large quantities of data, but in another hand its posible scale the solution if use cloud, the cloud services like Amazon, Azure o Google, have the capacities to use the large quantities of data, is posible use tools like Apache Spark that provide a solution with particionet data. In this order its posible make a hibrid solution using a data lake with SQL relational, in this case is possible use and for this reazon Apache Spark can provide the tools, its posible in python wiht a library like pySpark. <br />
+   The solution proposed in this case is functional on a short scale but it is possible that in the future with terabytes of data the solution will have problems, errors are normal because a relational database has problems handling large amounts of data, but for On the other hand, it is possible to scale the solution if the cloud is used. Cloud services such as Amazon, Azure or Google have the ability to use large amounts of data. It is possible to use tools such as Apache Spark that provide a solution with participation data. . In this order it is possible to carry out a hybrid solution using a data lake with relational SQL, in this case its use is possible and for this Apache Spark can provide the tools, it is possible to use python with a library like pySpark. <br />
 
 
 5. Security and Compliance:<br />
-   To protect the confidential data, especialy the cibersecurity event data, is necesary implement comprehensive security mesure that covering all aspecs phisics, logics and administrative to garantee the information security. <br />
-   The phisics access control, restringering the phisiscs access to servers, data centers and devices tha have storage or procesing confidencial data. The implementation of measure security like biometric sistems can reduce the probability to have access of thirt part. In adition is posible protect in case of natural desasters, the implementation the plans to protect the sistems in case of eventuaities like fires, earcuake and others, for this reazon a redundatian security copies or sistems like respald sources are a good form to protect the data in a phisiscs form.<br />
-   In logic security cases, is necesary use access control like authentication to acces the data, two factor authentication, multifactor or roles baset in user permissions.Use a data encriptation, use an encriptation algorithms and cifrate keys. Implement solutions to ciber-atacs like DOS, using anti malware softwares, firewalls, IDS and IPS to protect the sistems of data. And other form is network secmentation, use VPNs to acces a data or isolate systems can protect the confidencial data. <br />
-   The administrative gestion security can be addressed with security capacitations for all employes, this medide can be use periodicaly to have more practices to protect the data. the implementation of one security team its a good form to prevent and mitigate a risk security, this teanm can provide the gestion, monitoring and register ald security data, on this way the team can take proccess to give answer for all incidents. <br />
+   To protect sensitive data, especially cybersecurity event data, it is necessary to implement comprehensive security measures that cover all physical, logical and administrative aspects to ensure information security. <br />
+   Physical access control, restricting physical access to servers, data centers and devices that store or process confidential data. Implementing security measures such as biometric systems can reduce the likelihood of third-party access. It is also possible to protect in the event of natural disasters, the implementation of plans to protect systems in case of eventualities such as fires, earthquakes and others, for this reason a redundant backup copy or systems as backup sources are a good way to protect data in physical form.<br />
+   In logical security cases, it is necessary to use access controls such as authentication to access data, two-factor authentication, multi-factor, or roles based on user permissions. Use data encryption, encryption algorithms and encrypted keys. Implement solutions to cyber attacks such as DOS, using anti-malware software, firewalls, IDS and IPS to protect data systems. And another way is network segmentation, using VPN to access data or isolate systems can protect sensitive data. <br />
+   Administrative management security can be addressed with security training for all employees, this measure can be used periodically to have more practices to protect data. The implementation of a security team is a good way to prevent and mitigate a security risk, this team can provide the management, monitoring and recording of all security data, in this way the team can take the process to respond to all incidents. <br />
 
    In Colombia, is necesary take in hands the laws and regulations that are aplicables, in this case in Colombia have a law 1273 of 2009, this stablisc the dispocition of cybercrime. The law 1581 of 2012, stabliched the personal data protection(LGPD). And the ciber Security nacional marck, that establich a a best practices and directrices to protect the infraestructure and informatic sistems of the country. <br />
 
