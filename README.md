@@ -163,4 +163,120 @@ Evaluation Criteria:
   On this Pseudocode only show a simpificate form to implementate and in the real implementation can change. <br />
 
   
+3. Data Analysis: <br />
+   we have a diferent esenarios, now are show the solutions:<br />
+   - the top users wiht failed authentication attemps:<br />
+     ```SQL
+        SELECT
+          username,
+          COUNT(*) AS failed_attempts
+        FROM authentication_logs
+        WHERE success = FALSE
+        GROUP BY username
+        ORDER BY failed_attempts DESC
+        LIMIT 10;
+     ```
+    <br />
 
+    - Most frecuenti access computers in remote sessions: <br />
+      ```SQL
+          SELECT
+              remote_computer,
+              COUNT(*) AS login_count
+          FROM remote_login_logs
+          GROUP BY remote_computer
+          ORDER BY login_count DESC;
+      ```
+      <br />
+
+   - The red flow to find anomalies in the data pakages or bytes recound: <br />
+     ```Python
+     def analyze_network_traffic_for_anomalies():
+         # Connect to the network traffic data source (e.g., network monitoring tool)
+         network_data_source = connect_to_network_data_source()
+
+         # Define thresholds for normal packet size and byte count
+         normal_packet_size_threshold = 1500  # Bytes
+         normal_byte_count_threshold = 1000000  # Bytes per second
+
+         # Analyze network traffic data
+         for packet in network_data_source.get_packets():
+             packet_size = packet.get_size()
+             byte_count = packet.get_byte_count()
+
+             # Check for anomalies in packet size
+             if packet_size > normal_packet_size_threshold:
+                 print(f"Anomaly detected: Large packet size ({packet_size} bytes)")
+
+             # Check for anomalies in byte count
+             if byte_count > normal_byte_count_threshold:
+                 print(f"Anomaly detected: High byte count ({byte_count} bytes/second)")
+
+         # Close the connection to the network data source
+         network_data_source.close()
+
+      analyze_network_traffic_for_anomalies()
+
+     ```
+     <br />
+
+   - Correlation of DNS and authentication registration: <br />
+     ```Python
+     def correlate_dns_and_authentication_logs_for_threat_detection(dns_log_table, authentication_log_table, domain_name_column, client_ip_address_column, timestamp_column, success_column):
+         # Connect to the database
+         connection = connect_to_database()
+
+         # Define correlation time window (e.g., 1 hour)
+         correlation_window_seconds = 3600  # Seconds in an hour
+
+         # Retrieve DNS lookups within the time window
+         dns_lookups = retrieve_dns_lookups_from_table(connection, dns_log_table, domain_name_column, client_ip_address_column, timestamp_column, correlation_window_seconds)
+
+         # Retrieve authentication events within the time window
+         authentication_events = retrieve_authentication_events_from_table(connection, authentication_log_table, client_ip_address_column, timestamp_column, success_column, correlation_window_seconds)
+
+         # Correlate DNS lookups with authentication events
+         for dns_lookup in dns_lookups:
+             client_ip_address = dns_lookup.get_client_ip_address()
+             lookup_domain_name = dns_lookup.get_domain_name()
+             lookup_timestamp = dns_lookup.get_timestamp()
+
+             for authentication_event in authentication_events:
+                 event_timestamp = authentication_event.get_timestamp()
+                 event_user = authentication_event.get_user()
+                 event_success = authentication_event.get_success()
+
+                 # Check if authentication event occurred within a reasonable time frame
+                 if abs(lookup_timestamp - event_timestamp) <= correlation_window_seconds / 2:
+                     # If authentication failed and domain is suspicious, flag for investigation
+                     if not event_success and is_suspicious_domain(lookup_domain_name):
+                         print(f"Potential threat detected: Failed authentication for user '{event_user}' after DNS lookup for '{lookup_domain_name}'")
+
+         # Close the database connection
+         connection.close()
+
+      # Replace placeholder functions with actual implementations for retrieving data from tables
+      def retrieve_dns_lookups_from_table(connection, table_name, domain_name_column, client_ip_address_column, timestamp_column, time_window_seconds):
+          # Implement logic to fetch DNS lookup records from the specified table within the given time window
+          # Use SQL queries to retrieve data from the table based on the provided column names and time window
+          pass
+
+      def retrieve_authentication_events_from_table(connection, table_name, client_ip_address_column, timestamp_column, success_column, time_window_seconds):
+          # Implement logic to extract authentication events from the specified table within the given time window
+          # Use SQL queries to retrieve data from the table based on the provided column names and time window
+          pass
+
+      # Replace placeholder function with actual implementation for suspicious domain checks
+      def is_suspicious_domain(domain_name):
+          # Implement logic to determine whether a given domain name is considered suspicious
+          # This may involve checking against blocklists, reputation databases, or other threat intelligence sources
+          pass
+
+     ```
+     <br />
+
+4. Handling Scale and Performance:<br />
+   The solution that its propouse in this case is funtional in short scale but its posible that in future with terabytes of data, the solution hava problems, thouse error are normal because a relacional data base have problems to management a large quantities of data, but in another hand its posible scale the solution if use cloud, the cloud services like Amazon, Azure o Google, have the capacities to use the large quantities of data, its posible use tools like Apache Spark that provide a solution with particionet data. In this order its posible make a hibrid solution using a data lake with SQL relational, in this case is possible use and for this reazon Apache Spark can provide the tools, its posible in python wiht a library like pySpark. <br />
+
+
+5. Security and Compliance:<br />
