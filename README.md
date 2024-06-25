@@ -1,8 +1,8 @@
 # Informatic_Security
 technical test ciber-security events
 
-this document its create to solve a multi-source Cyber-security Events Analysis, on this doccument the objetive is obtain a solution whit a pseudo implementation of knowledge on data modeling and other abilities.
-now I show the solution to differents task.
+This document is created to solve a Cybersecurity Event Analysis from multiple sources, in this document the objective is to obtain a solution with a pseudo implementation of knowledge about data modeling and other skills.
+Now the solution to different tasks performed is shown:
 
 ## Multi-Source Cyber-Security Events Analysis
 
