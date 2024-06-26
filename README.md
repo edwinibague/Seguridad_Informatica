@@ -85,16 +85,16 @@ Evaluation Criteria:
    1. **identify change events in data:** <br />
       In the SQL server it is possible to capture and track change events using the CDC function. This feature provides a mechanism to capture changes. Another implementation is trigger based monitoring to monitor all changes to the data, triggers can be configured to execute specific actions such as sending notifications or updating external systems when changes are made to the data.<br />
       
-   2. **Implement mechanism of change notification; **<br />
+   2. **Implement mechanism of change notification:** <br />
       CDC notifications can be used to receive alerts whenever a change in data is captured, these notifications can start the index update process. Trigger based notifications can be configured, when this trigger is activated by any change in data, it is possible to send notifications or messages to another communication channel. <br />
       
    3. **indice update proces:** <br />
       Batch update when a notification is received can be done in the index update, at this time it is necessary to identify all affected data and update all index entries. To update in real time you need to use a stream processing framework like Apache Kafka or Apache Spark Streaming, this can process change notifications, continue and update the index in real time.<br />
       
-   4.  **Maintenance of search index:**<br />
+   4.  **Maintenance of search index:** <br />
        To avoid potential discrepancies and ensure data consistency, a complete rebuild of the search index can be performed periodically. Implement incremental index updates, focusing only on changed data records, rather than rebuilding the entire index each time.<br />
        
-   5.  **Chose an appropiate search engine;**<br />
+   5.  **Chose an appropiate search engine:** <br />
        One consideration to have are search monitors such as elasticsearch or Apache Solr, which have indexing, searching, and synchronization capabilities. Another consideration is NoSQL databases such as MongoDB or Cassandra that provide functionality to integrate searches and can use large volumes of data. <br />
        
    6.  **Consider Cloud-based Search services:**<br />
@@ -103,7 +103,7 @@ Evaluation Criteria:
    7.  **Handle data conflicts and errors:**<br />
        Implement a retry mechanism to handle temporary failures or errors during the change notification or index update processes. Develop resolution strategies to address potential discrepancies between SQL Server data and the search index. <br />
        
-   8.  **Monitor and optimize Performance:**<br />
+   8.  **Monitor and optimize Performance:** <br />
        Monitor the performance of the indexing process, including indexing time, resource utilization, and error rates. Optimize indexing strategies based on data volume, change frequency, and search patterns to ensure efficient indexing and search performance. <br />
        
   The following pseudocode shows how to perform data ingestion using Python.<br />
